@@ -14,39 +14,79 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(966, 694)
+        MainWindow.resize(689, 543)
+        MainWindow.setStyleSheet("background-color:rgb(101, 40, 247);")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(440, 370, 93, 28))
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_2.setGeometry(QtCore.QRect(440, 410, 93, 28))
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_3.setGeometry(QtCore.QRect(440, 450, 93, 28))
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.dateTimeEdit = QtWidgets.QDateTimeEdit(self.centralwidget)
-        self.dateTimeEdit.setGeometry(QtCore.QRect(390, 210, 194, 22))
-        self.dateTimeEdit.setObjectName("dateTimeEdit")
+        self.label = QtWidgets.QLabel(self.centralwidget)
+        self.label.setGeometry(QtCore.QRect(160, 80, 531, 151))
+        self.label.setStyleSheet("font: 75 24pt \"Bahnschrift\";\n"
+"color:white;\n"
+"text-shadow: 2px 2px;")
+        self.label.setObjectName("label")
+        self.settingBtn = QtWidgets.QPushButton(self.centralwidget)
+        self.settingBtn.setGeometry(QtCore.QRect(260, 330, 181, 71))
+        self.settingBtn.setStyleSheet("QPushButton {\n"
+"font: 18pt \"Bahnschrift Condensed\";\n"
+"background-color:rgb(80, 64, 153);\n"
+"color:white;\n"
+"border-radius:12px;\n"
+"}\n"
+"QPushButton:hover{\n"
+"background-color:rgb(160, 118, 249);\n"
+"}\n"
+"")
+        self.settingBtn.setObjectName("settingBtn")
+        self.startBtn = QtWidgets.QPushButton(self.centralwidget)
+        self.startBtn.setGeometry(QtCore.QRect(260, 250, 181, 71))
+        self.startBtn.setStyleSheet("QPushButton {\n"
+"font: 18pt \"Bahnschrift Condensed\";\n"
+"background-color:rgb(80, 64, 153);\n"
+"color:white;\n"
+"border-radius:12px;\n"
+"}\n"
+"QPushButton:hover{\n"
+"background-color:rgb(160, 118, 249);\n"
+"}\n"
+"")
+        self.startBtn.setObjectName("startBtn")
+        self.quitBtn = QtWidgets.QPushButton(self.centralwidget)
+        self.quitBtn.setGeometry(QtCore.QRect(260, 410, 181, 71))
+        self.quitBtn.setStyleSheet("QPushButton {\n"
+"font: 18pt \"Bahnschrift Condensed\";\n"
+"background-color:rgb(80, 64, 153);\n"
+"color:white;\n"
+"border-radius:12px;\n"
+"}\n"
+"QPushButton:hover{\n"
+"background-color:rgb(160, 118, 249);\n"
+"}\n"
+"")
+        self.quitBtn.setObjectName("quitBtn")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 966, 26))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 689, 26))
         self.menubar.setObjectName("menubar")
+        self.menuAbout = QtWidgets.QMenu(self.menubar)
+        self.menuAbout.setObjectName("menuAbout")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
+        self.menubar.addAction(self.menuAbout.menuAction())
 
         self.retranslateUi(MainWindow)
+        self.quitBtn.clicked.connect(MainWindow.close) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.pushButton.setText(_translate("MainWindow", "Start"))
-        self.pushButton_2.setText(_translate("MainWindow", "Setting"))
-        self.pushButton_3.setText(_translate("MainWindow", "Quit"))
+        self.label.setText(_translate("MainWindow", "SHAPE SEGMENTATION"))
+        self.settingBtn.setText(_translate("MainWindow", "Setting"))
+        self.startBtn.setText(_translate("MainWindow", "Start"))
+        self.quitBtn.setText(_translate("MainWindow", "Quit"))
+        self.menuAbout.setTitle(_translate("MainWindow", "About"))
 
 
 if __name__ == "__main__":
