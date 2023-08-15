@@ -155,7 +155,7 @@ class Ui_StartWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.pushButton.setText(_translate("MainWindow", "Back"))
-        self.label.setText(_translate("MainWindow", "TextLabel"))
+        self.label.setText(_translate("MainWindow", ""))
         self.pushButton_2.setText(_translate("MainWindow", "Toggle background/\n"
 "black"))
 class Camera(QThread):
