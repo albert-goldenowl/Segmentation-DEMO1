@@ -25,6 +25,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 import onnxruntime as ort
+with open('colors.txt', 'r') as f:
+    colors = f.readlines()
+square = colors[0].replace('(','').replace(')','').split(',')
+circle = colors[1].replace('(','').replace(')','').split(',')
+triangle = colors[2].replace('(','').replace(')','').split(',')
+star = colors[3].replace('(','').replace(')','').split(',')
+print(square)
+
 frame_shape = (811, 481)
 target_shape = (256, 256, 3)
 half_width = target_shape[0] // 2
@@ -35,48 +43,47 @@ x1 = frame_shape[0] // 2 + half_width
 y1 = frame_shape[1] // 2 + half_height
 
 
-
 background = -1
 ort_session = ort.InferenceSession('model.onnx')
 input_name = ort_session.get_inputs()[0].name
 output_name = ort_session.get_outputs()[0].name
-def create_img(mask_output):
+def create_img(mask_output, square, circle, triangle, star):
     r = np.zeros((256, 256), dtype=np.uint8)
     g = np.zeros((256, 256), dtype=np.uint8)
     b = np.zeros((256, 256), dtype=np.uint8)
-    r[mask_output == 1] = 250
-    r[mask_output == 2] = 36
-    r[mask_output == 3] = 42
-    r[mask_output == 4] = 115
+    r[mask_output == 1] = int(square[0])
+    r[mask_output == 2] = int(circle[0])
+    r[mask_output == 3] = int(triangle[0])
+    r[mask_output == 4] = int(star[0])
 
-    g[mask_output == 1] = 50
-    g[mask_output == 2] = 179
-    g[mask_output == 3] = 125
-    g[mask_output == 4] = 51
+    g[mask_output == 1] = int(square[1])
+    g[mask_output == 2] = int(circle[1])
+    g[mask_output == 3] = int(triangle[1])
+    g[mask_output == 4] = int(star[1])
 
-    b[mask_output == 1] = 83
-    b[mask_output == 2] = 83
-    b[mask_output == 3] = 209
-    b[mask_output == 4] = 128
+    b[mask_output == 1] = int(square[2])
+    b[mask_output == 2] = int(circle[2])
+    b[mask_output == 3] = int(triangle[2])
+    b[mask_output == 4] = int(star[2])
 
     output = np.stack([b, g, r], axis=-1)
     return output
-def create_img_bg(roi, mask_output):
+def create_img_bg(roi, mask_output, square, circle, triangle, star):
     b, g, r = cv2.split(roi)
-    r[mask_output == 1] = 250
-    r[mask_output == 2] = 36
-    r[mask_output == 3] = 42
-    r[mask_output == 4] = 115
+    r[mask_output == 1] = int(square[0])
+    r[mask_output == 2] = int(circle[0])
+    r[mask_output == 3] = int(triangle[0])
+    r[mask_output == 4] = int(star[0])
 
-    g[mask_output == 1] = 50
-    g[mask_output == 2] = 179
-    g[mask_output == 3] = 125
-    g[mask_output == 4] = 51
+    g[mask_output == 1] = int(square[1])
+    g[mask_output == 2] = int(circle[1])
+    g[mask_output == 3] = int(triangle[1])
+    g[mask_output == 4] = int(star[1])
 
-    b[mask_output == 1] = 83
-    b[mask_output == 2] = 83
-    b[mask_output == 3] = 209
-    b[mask_output == 4] = 128
+    b[mask_output == 1] = int(square[2])
+    b[mask_output == 2] = int(circle[2])
+    b[mask_output == 3] = int(triangle[2])
+    b[mask_output == 4] = int(star[2])
 
     output = np.stack([b, g, r], axis=-1)
     return output
@@ -171,7 +178,7 @@ class Camera(QThread):
             input_to_model = np.expand_dims(input_to_model, axis=0)
             y_pred = ort_session.run([output_name], {input_name: input_to_model})
             res = np.argmax(y_pred[0][0], axis=-1)
-            mask_output = create_img(res)
+            mask_output = create_img(res, square, circle, triangle, star)
             cv2.rectangle(frame, (x0, y0), (x1, y1), (0, 255, 0), 2)
             if self.background == -1:
                 pass
@@ -179,7 +186,7 @@ class Camera(QThread):
                 
             else:
                 # cv2.putText(frame, 'Background mode', (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 1)
-                mask_output = create_img_bg(sample_window, res)
+                mask_output = create_img_bg(sample_window, res, square, circle, triangle, star)
             frame[y0:y0+target_shape[1], x0:x0+target_shape[0]] = mask_output
             frame = cv2.flip(frame, 1)
             new_time = time.time()
