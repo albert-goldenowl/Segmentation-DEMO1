@@ -1,7 +1,4 @@
 import cv2
-import os
-from config import frameshape
-import os
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
@@ -9,7 +6,7 @@ import time
 import onnxruntime as ort
 
 
-frame_shape = frameshape
+frame_shape = (640, 480)
 target_shape = (256, 256, 3)
 half_width = target_shape[0] // 2
 half_height = target_shape[1] // 2
@@ -92,8 +89,6 @@ while True:
     prev_time = new_time
     cv2.imshow('cam', frame)
     k = cv2.waitKey(1)
-    if k == ord('c'):
-        crf = -crf
     if k == ord('b'):
         background = -background
     if k == ord('q'):

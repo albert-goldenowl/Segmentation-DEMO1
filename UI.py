@@ -9,14 +9,18 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from startUI import Ui_Dialog
 
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
+from startUI import Ui_StartWindow
 class Ui_MainWindow(object):
-    def open2ndwindow(self):
+    def openstartwindow(self):
         self.window = QtWidgets.QMainWindow()
-        self.ui = Ui_Dialog()
+        self.ui = Ui_StartWindow()
         self.ui.setupUi(self.window)
+        MainWindow.hide()
         self.window.show()
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(689, 543)
@@ -25,11 +29,13 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(160, 80, 531, 151))
+
         self.label.setStyleSheet("font: 75 24pt \"Bahnschrift\";\n"
 "color:white;")
         self.label.setObjectName("label")
         self.settingBtn = QtWidgets.QPushButton(self.centralwidget)
         self.settingBtn.setGeometry(QtCore.QRect(260, 330, 181, 71))
+        self.settingBtn.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
         self.settingBtn.setStyleSheet("QPushButton {\n"
 "font: 18pt \"Bahnschrift Condensed\";\n"
 "background-color:rgb(80, 64, 153);\n"
@@ -43,6 +49,7 @@ class Ui_MainWindow(object):
         self.settingBtn.setObjectName("settingBtn")
         self.startBtn = QtWidgets.QPushButton(self.centralwidget)
         self.startBtn.setGeometry(QtCore.QRect(260, 250, 181, 71))
+        self.startBtn.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
         self.startBtn.setStyleSheet("QPushButton {\n"
 "font: 18pt \"Bahnschrift Condensed\";\n"
 "background-color:rgb(80, 64, 153);\n"
@@ -54,9 +61,10 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.startBtn.setObjectName("startBtn")
-        self.startBtn.clicked.connect(self.open2ndwindow)
+        self.startBtn.clicked.connect(self.openstartwindow)
         self.quitBtn = QtWidgets.QPushButton(self.centralwidget)
         self.quitBtn.setGeometry(QtCore.QRect(260, 410, 181, 71))
+        self.quitBtn.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
         self.quitBtn.setStyleSheet("QPushButton {\n"
 "font: 18pt \"Bahnschrift Condensed\";\n"
 "background-color:rgb(80, 64, 153);\n"
@@ -69,16 +77,9 @@ class Ui_MainWindow(object):
 "")
         self.quitBtn.setObjectName("quitBtn")
         MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 689, 22))
-        self.menubar.setObjectName("menubar")
-        self.menuAbout = QtWidgets.QMenu(self.menubar)
-        self.menuAbout.setObjectName("menuAbout")
-        MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-        self.menubar.addAction(self.menuAbout.menuAction())
 
         self.retranslateUi(MainWindow)
         self.quitBtn.clicked.connect(MainWindow.close) # type: ignore
@@ -86,12 +87,11 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("Shape Segmentation", "Shape Segmentation"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "SHAPE SEGMENTATION"))
         self.settingBtn.setText(_translate("MainWindow", "Setting"))
         self.startBtn.setText(_translate("MainWindow", "Start"))
         self.quitBtn.setText(_translate("MainWindow", "Quit"))
-        self.menuAbout.setTitle(_translate("MainWindow", "About"))
 
 
 if __name__ == "__main__":

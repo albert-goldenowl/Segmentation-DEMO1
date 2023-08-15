@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>689</width>
-    <height>543</height>
+    <width>899</width>
+    <height>669</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,30 +17,66 @@
    <string notr="true">background-color:rgb(101, 40, 247);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>580</y>
+      <width>121</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>OpenHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+font: 18pt &quot;Bahnschrift Condensed&quot;;
+background-color:rgb(80, 64, 153);
+color:white;
+border-radius:12px;
+}
+QPushButton:hover{
+background-color:rgb(160, 118, 249);
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Back</string>
+    </property>
+   </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>80</y>
-      <width>531</width>
-      <height>151</height>
+      <x>40</x>
+      <y>50</y>
+      <width>811</width>
+      <height>481</height>
      </rect>
     </property>
-    <property name="styleSheet">
-     <string notr="true">font: 75 24pt &quot;Bahnschrift&quot;;
-color:white;</string>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Sunken</enum>
+    </property>
+    <property name="lineWidth">
+     <number>3</number>
+    </property>
+    <property name="midLineWidth">
+     <number>3</number>
     </property>
     <property name="text">
-     <string>SHAPE SEGMENTATION</string>
+     <string>TextLabel</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="settingBtn">
+   <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>330</y>
-      <width>181</width>
-      <height>71</height>
+      <x>600</x>
+      <y>580</y>
+      <width>141</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="cursor">
@@ -48,7 +84,7 @@ color:white;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton {
-font: 18pt &quot;Bahnschrift Condensed&quot;;
+font: 10pt &quot;Bahnschrift Condensed&quot;;
 background-color:rgb(80, 64, 153);
 color:white;
 border-radius:12px;
@@ -59,63 +95,8 @@ background-color:rgb(160, 118, 249);
 </string>
     </property>
     <property name="text">
-     <string>Setting</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="startBtn">
-    <property name="geometry">
-     <rect>
-      <x>260</x>
-      <y>250</y>
-      <width>181</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="cursor">
-     <cursorShape>OpenHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton {
-font: 18pt &quot;Bahnschrift Condensed&quot;;
-background-color:rgb(80, 64, 153);
-color:white;
-border-radius:12px;
-}
-QPushButton:hover{
-background-color:rgb(160, 118, 249);
-}
-</string>
-    </property>
-    <property name="text">
-     <string>Start</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="quitBtn">
-    <property name="geometry">
-     <rect>
-      <x>260</x>
-      <y>410</y>
-      <width>181</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="cursor">
-     <cursorShape>OpenHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton {
-font: 18pt &quot;Bahnschrift Condensed&quot;;
-background-color:rgb(80, 64, 153);
-color:white;
-border-radius:12px;
-}
-QPushButton:hover{
-background-color:rgb(160, 118, 249);
-}
-</string>
-    </property>
-    <property name="text">
-     <string>Quit</string>
+     <string>Toggle background/
+black</string>
     </property>
    </widget>
   </widget>
@@ -124,18 +105,18 @@ background-color:rgb(160, 118, 249);
  <resources/>
  <connections>
   <connection>
-   <sender>quitBtn</sender>
+   <sender>pushButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>322</x>
-     <y>460</y>
+     <x>837</x>
+     <y>615</y>
     </hint>
     <hint type="destinationlabel">
-     <x>495</x>
-     <y>-20</y>
+     <x>510</x>
+     <y>-2</y>
     </hint>
    </hints>
   </connection>

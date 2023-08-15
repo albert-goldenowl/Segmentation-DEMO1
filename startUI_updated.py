@@ -9,8 +9,6 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
-from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
 import cv2
 from PyQt5 import QtCore
@@ -26,7 +24,7 @@ import matplotlib.pyplot as plt
 import time
 import onnxruntime as ort
 
-frame_shape = (811, 481)
+frame_shape = (640, 480)
 target_shape = (256, 256, 3)
 half_width = target_shape[0] // 2
 half_height = target_shape[1] // 2
@@ -34,8 +32,6 @@ x0 = frame_shape[0] // 2 - half_width
 y0 = frame_shape[1] // 2 - half_height
 x1 = frame_shape[0] // 2 + half_width
 y1 = frame_shape[1] // 2 + half_height
-
-
 
 background = -1
 ort_session = ort.InferenceSession('model.onnx')
@@ -81,61 +77,39 @@ def create_img_bg(roi, mask_output):
 
     output = np.stack([b, g, r], axis=-1)
     return output
-class Ui_StartWindow(object):
+class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(728, 669)
-        MainWindow.setStyleSheet("background-color:rgb(101, 40, 247);")
+        MainWindow.resize(899, 669)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(589, 580, 121, 51))
-        self.pushButton.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
-        self.pushButton.setStyleSheet("QPushButton {\n"
-"font: 18pt \"Bahnschrift Condensed\";\n"
-"background-color:rgb(80, 64, 153);\n"
-"color:white;\n"
-"border-radius:12px;\n"
-"}\n"
-"QPushButton:hover{\n"
-"background-color:rgb(160, 118, 249);\n"
-"}\n"
-"")
+        self.pushButton.setGeometry(QtCore.QRect(800, 600, 88, 25))
         self.pushButton.setObjectName("pushButton")
+        self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_2.setGeometry(QtCore.QRect(690, 600, 88, 25))
+        self.pushButton_2.setObjectName("pushButton_2")
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(40, 50, 640, 481))
+        self.label.setGeometry(QtCore.QRect(40, 50, 811, 481))
         self.label.setFrameShape(QtWidgets.QFrame.Box)
         self.label.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.label.setLineWidth(3)
         self.label.setMidLineWidth(3)
         self.label.setObjectName("label")
-        self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_2.setGeometry(QtCore.QRect(429, 580, 141, 51))
-        self.pushButton_2.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
-        self.pushButton_2.setStyleSheet("QPushButton {\n"
-"font: 10pt \"Bahnschrift Condensed\";\n"
-"background-color:rgb(80, 64, 153);\n"
-"color:white;\n"
-"border-radius:12px;\n"
-"}\n"
-"QPushButton:hover{\n"
-"background-color:rgb(160, 118, 249);\n"
-"}\n"
-"")
-        self.pushButton_2.setObjectName("pushButton_2")
+        
         MainWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(MainWindow)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 899, 22))
+        self.menubar.setObjectName("menubar")
+        MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-        self.camera = Camera()  
+        self.camera = Camera()
         self.camera.image.connect(self.update_image)
         self.camera.start()
-        self.pushButton_2.clicked.connect(self.toggle_background)
         self.retranslateUi(MainWindow)
-        self.pushButton.clicked.connect(MainWindow.close) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-    def toggle_background(self):
-        self.camera.background = -self.camera.background
     def update_image(self, frame):
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         image = QImage(frame, frame.shape[1], frame.shape[0], QImage.Format_RGB888)
@@ -144,16 +118,15 @@ class Ui_StartWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.pushButton.setText(_translate("MainWindow", "Back"))
+        self.pushButton_2.setText(_translate("MainWindow", "Connect"))
         self.label.setText(_translate("MainWindow", "TextLabel"))
-        self.pushButton_2.setText(_translate("MainWindow", "Toggle background/\n"
-"black"))
 class Camera(QThread):
     image = pyqtSignal(np.ndarray)
-    background = -1
     def __init__(self):
         super().__init__()
         self.flag = True
     def run(self):
+        background = -1
         prev_time = 0 
         new_time = 0
         self.capture = cv2.VideoCapture(0)
@@ -168,12 +141,11 @@ class Camera(QThread):
             res = np.argmax(y_pred[0][0], axis=-1)
             mask_output = create_img(res)
             cv2.rectangle(frame, (x0, y0), (x1, y1), (0, 255, 0), 2)
-            if self.background == -1:
-                pass
-                # cv2.putText(frame, 'Black mode', (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 1)
+            if background == -1:
+                cv2.putText(frame, 'Black mode', (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 1)
                 
             else:
-                # cv2.putText(frame, 'Background mode', (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 1)
+                cv2.putText(frame, 'Background mode', (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 1)
                 mask_output = create_img_bg(sample_window, res)
             frame[y0:y0+target_shape[1], x0:x0+target_shape[0]] = mask_output
             frame = cv2.flip(frame, 1)
@@ -183,16 +155,16 @@ class Camera(QThread):
             prev_time = new_time
             k = cv2.waitKey(1)
             self.image.emit(frame)
-         
+            if k == ord('b'):
+                background = -background
     def stop(self):
         self.flag = False
         self.wait()
-
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
-    ui =  Ui_StartWindow()
+    ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
