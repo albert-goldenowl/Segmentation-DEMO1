@@ -99,7 +99,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Shape Segmentation"))
         self.label.setText(_translate("MainWindow", "SHAPE SEGMENTATION"))
         self.settingBtn.setText(_translate("MainWindow", "Setting"))
         self.startBtn.setText(_translate("MainWindow", "Start"))
