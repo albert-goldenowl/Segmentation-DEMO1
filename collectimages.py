@@ -1,6 +1,5 @@
 import cv2
 import os
-from config import imshape
 save_dir = 'images'
 if os.path.exists(save_dir) == False:
     os.mkdir(save_dir)

@@ -9,7 +9,18 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from PyQt5.QtWidgets import *
+from PIL import ImageColor
+with open('colors.txt', 'r') as f:
+    colors = f.readlines()
+square = colors[0].replace('(','').replace(')','').split(',')
+circle = colors[1].replace('(','').replace(')','').split(',')
+triangle = colors[2].replace('(','').replace(')','').split(',')
+star = colors[3].replace('(','').replace(')','').split(',')
+square_setting = f'({int(square[0])}, {int(square[1])}, {int(square[2])})'
+circle_setting = f'({int(circle[0])}, {int(circle[1])}, {int(circle[2])})'
+triangle_setting = f'({int(triangle[0])}, {int(triangle[1])}, {int(triangle[2])})'
+star_setting = f'({int(star[0])}, {int(star[1])}, {int(star[2])})'
 
 class Ui_SettingWindow(object):
     backSignal = QtCore.pyqtSignal()
@@ -21,28 +32,29 @@ class Ui_SettingWindow(object):
         self.centralwidget.setObjectName("centralwidget")
         self.squareFrame = QtWidgets.QFrame(self.centralwidget)
         self.squareFrame.setGeometry(QtCore.QRect(190, 110, 120, 80))
-        self.squareFrame.setStyleSheet("background-color:rgb(250, 50, 83);\n"
-"")
+        self.squareFrame.setStyleSheet("background-color:rgb%s;\n" 
+"" % square_setting)
+
         self.squareFrame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.squareFrame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.squareFrame.setObjectName("squareFrame")
         self.circleFrame = QtWidgets.QFrame(self.centralwidget)
         self.circleFrame.setGeometry(QtCore.QRect(190, 230, 120, 80))
-        self.circleFrame.setStyleSheet("background-color:rgb(36, 179, 83)\n"
-"")
+        self.circleFrame.setStyleSheet("background-color:rgb%s\n"
+"" % circle_setting)
         self.circleFrame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.circleFrame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.circleFrame.setObjectName("circleFrame")
         self.triangleFrame = QtWidgets.QFrame(self.centralwidget)
         self.triangleFrame.setGeometry(QtCore.QRect(190, 350, 120, 80))
-        self.triangleFrame.setStyleSheet("background-color:rgb(42, 125, 209)\n"
-"")
+        self.triangleFrame.setStyleSheet("background-color:rgb%s\n"
+"" % triangle_setting)
         self.triangleFrame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.triangleFrame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.triangleFrame.setObjectName("triangleFrame")
         self.starFrame = QtWidgets.QFrame(self.centralwidget)
         self.starFrame.setGeometry(QtCore.QRect(190, 470, 120, 80))
-        self.starFrame.setStyleSheet("background-color:rgb(115, 51, 128)")
+        self.starFrame.setStyleSheet("background-color:rgb%s" % star_setting)
         self.starFrame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.starFrame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.starFrame.setObjectName("starFrame")
@@ -148,10 +160,46 @@ class Ui_SettingWindow(object):
 
         self.retranslateUi(MainWindow)
         self.okBtn.clicked.connect(self.goback) # type: ignore
+        self.squareBtn.clicked.connect(self.colorpicker_square)
+        self.circleBtn.clicked.connect(self.colorpicker_circle)
+        self.triangleBtn.clicked.connect(self.colorpicker_triangle)
+        self.starBtn.clicked.connect(self.colorpicker_star)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+    def colorpicker_square(self):
+        col = QColorDialog.getColor()
+        if col.isValid():
+            rgb_square = ImageColor.getcolor(col.name(), "RGB")
+            colors[0] = str(rgb_square) + '\n'
+            with open('colors.txt', 'w') as f:
+                f.writelines(colors)
+            self.squareFrame.setStyleSheet("background-color: %s;\n" % col.name())
+    def colorpicker_circle(self):
+        col = QColorDialog.getColor()
+        if col.isValid():
+            rgb_circle = ImageColor.getcolor(col.name(), "RGB")
+            colors[1] = str(rgb_circle) + '\n'
+            with open('colors.txt', 'w') as f:
+                f.writelines(colors)
+            self.circleFrame.setStyleSheet("background-color: %s;\n" % col.name())
+    def colorpicker_triangle(self):
+        col = QColorDialog.getColor()
+        if col.isValid():
+            rgb_triangle = ImageColor.getcolor(col.name(), "RGB")
+            colors[2] = str(rgb_triangle) + '\n'
+            with open('colors.txt', 'w') as f:
+                f.writelines(colors)
+            self.triangleFrame.setStyleSheet("background-color: %s;\n" % col.name())
+    def colorpicker_star(self):
+        col = QColorDialog.getColor()
+        if col.isValid():
+            rgb_star = ImageColor.getcolor(col.name(), "RGB")
+            colors[3] = str(rgb_star) + '\n'
+            with open('colors.txt', 'w') as f:
+                f.writelines(colors)
+            self.starFrame.setStyleSheet("background-color: %s;\n" % col.name())
     def goback(self):
 
-        MainWindow.close()
+        self.close()
         self.backSignal.emit()
         print('SettingUI closed')
 

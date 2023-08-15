@@ -28,7 +28,7 @@ class Ui_MainWindow(object):
     def opensettingwindow(self):
         self.settingui = Ui_SettingWindow()
         self.settingui.setupUi(self.window)
-        self.settingui.backSignal.connect(self.show)
+        # self.settingui.backSignal.connect(self.show)
         
         self.window.show()
     def setupUi(self, MainWindow):

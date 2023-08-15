@@ -31,7 +31,6 @@ square = colors[0].replace('(','').replace(')','').split(',')
 circle = colors[1].replace('(','').replace(')','').split(',')
 triangle = colors[2].replace('(','').replace(')','').split(',')
 star = colors[3].replace('(','').replace(')','').split(',')
-print(square)
 
 frame_shape = (640, 481)
 target_shape = (256, 256, 3)
