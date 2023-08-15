@@ -143,8 +143,11 @@ class Ui_StartWindow(object):
         self.camera.start()
         self.pushButton_2.clicked.connect(self.toggle_background)
         self.retranslateUi(MainWindow)
-        self.pushButton.clicked.connect(MainWindow.close) # type: ignore
+        self.pushButton.clicked.connect(lambda: close_webcam(MainWindow)) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+    def close_webcam(self, window):
+        window.close()
+        self.camera.stop()
     def toggle_background(self):
         self.camera.background = -self.camera.background
     def update_image(self, frame):
@@ -194,8 +197,10 @@ class Camera(QThread):
             prev_time = new_time
             k = cv2.waitKey(1)
             self.image.emit(frame)
-         
+        self.capture.release()
     def stop(self):
+        self.capture.release()
+
         self.flag = False
         self.wait()
 

@@ -23,14 +23,15 @@ class Ui_MainWindow(object):
     def openstartwindow(self):
         self.ui = Ui_StartWindow()
         self.ui.setupUi(self.window)
-        MainWindow.hide()
+        # MainWindow.hide()
         self.window.show()
     def opensettingwindow(self):
+        self.window2 = QtWidgets.QMainWindow()
         self.settingui = Ui_SettingWindow()
-        self.settingui.setupUi(self.window)
+        self.settingui.setupUi(self.window2)
         # self.settingui.backSignal.connect(self.show)
         
-        self.window.show()
+        self.window2.show()
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(689, 543)
