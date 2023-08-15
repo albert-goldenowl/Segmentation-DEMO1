@@ -25,7 +25,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 import onnxruntime as ort
-
 frame_shape = (811, 481)
 target_shape = (256, 256, 3)
 half_width = target_shape[0] // 2
@@ -82,6 +81,12 @@ def create_img_bg(roi, mask_output):
     output = np.stack([b, g, r], axis=-1)
     return output
 class Ui_StartWindow(object):
+    # def openmainwindow(self):
+    #     self.window = QtWidgets.QMainWindow()
+    #     self.ui = Ui_MainWindow()
+    #     self.ui.setupUi(self.window)
+    #     MainWindow.hide()
+    #     self.window.show()
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(728, 669)
