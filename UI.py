@@ -9,9 +9,14 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from startUI import Ui_Dialog
 
 class Ui_MainWindow(object):
+    def open2ndwindow(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = Ui_Dialog()
+        self.ui.setupUi(self.window)
+        self.window.show()
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(689, 543)
@@ -21,8 +26,7 @@ class Ui_MainWindow(object):
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(160, 80, 531, 151))
         self.label.setStyleSheet("font: 75 24pt \"Bahnschrift\";\n"
-"color:white;\n"
-"text-shadow: 2px 2px;")
+"color:white;")
         self.label.setObjectName("label")
         self.settingBtn = QtWidgets.QPushButton(self.centralwidget)
         self.settingBtn.setGeometry(QtCore.QRect(260, 330, 181, 71))
@@ -50,6 +54,7 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.startBtn.setObjectName("startBtn")
+        self.startBtn.clicked.connect(self.open2ndwindow)
         self.quitBtn = QtWidgets.QPushButton(self.centralwidget)
         self.quitBtn.setGeometry(QtCore.QRect(260, 410, 181, 71))
         self.quitBtn.setStyleSheet("QPushButton {\n"
@@ -65,7 +70,7 @@ class Ui_MainWindow(object):
         self.quitBtn.setObjectName("quitBtn")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 689, 26))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 689, 22))
         self.menubar.setObjectName("menubar")
         self.menuAbout = QtWidgets.QMenu(self.menubar)
         self.menuAbout.setObjectName("menuAbout")
@@ -81,7 +86,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("Shape Segmentation", "Shape Segmentation"))
         self.label.setText(_translate("MainWindow", "SHAPE SEGMENTATION"))
         self.settingBtn.setText(_translate("MainWindow", "Setting"))
         self.startBtn.setText(_translate("MainWindow", "Start"))
