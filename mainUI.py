@@ -13,14 +13,24 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from startUI import Ui_StartWindow
+from settingUI import Ui_SettingWindow
+
+
 class Ui_MainWindow(object):
-    def openstartwindow(self):
+    def __init__(self):
         self.window = QtWidgets.QMainWindow()
+
+    def openstartwindow(self):
         self.ui = Ui_StartWindow()
         self.ui.setupUi(self.window)
         MainWindow.hide()
         self.window.show()
-
+    def opensettingwindow(self):
+        self.settingui = Ui_SettingWindow()
+        self.settingui.setupUi(self.window)
+        self.settingui.backSignal.connect(self.show)
+        
+        self.window.show()
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(689, 543)
@@ -47,6 +57,7 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.settingBtn.setObjectName("settingBtn")
+        self.settingBtn.clicked.connect(self.opensettingwindow)
         self.startBtn = QtWidgets.QPushButton(self.centralwidget)
         self.startBtn.setGeometry(QtCore.QRect(260, 250, 181, 71))
         self.startBtn.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))

@@ -11,7 +11,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_MainWindow(object):
+class Ui_SettingWindow(object):
+    backSignal = QtCore.pyqtSignal()
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 600)
@@ -146,8 +147,13 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.okBtn.clicked.connect(MainWindow.close) # type: ignore
+        self.okBtn.clicked.connect(self.goback) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+    def goback(self):
+
+        MainWindow.close()
+        self.backSignal.emit()
+        print('SettingUI closed')
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -168,7 +174,7 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
+    ui = Ui_SettingWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())

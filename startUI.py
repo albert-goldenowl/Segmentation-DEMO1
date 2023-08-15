@@ -33,7 +33,7 @@ triangle = colors[2].replace('(','').replace(')','').split(',')
 star = colors[3].replace('(','').replace(')','').split(',')
 print(square)
 
-frame_shape = (811, 481)
+frame_shape = (640, 481)
 target_shape = (256, 256, 3)
 half_width = target_shape[0] // 2
 half_height = target_shape[1] // 2
