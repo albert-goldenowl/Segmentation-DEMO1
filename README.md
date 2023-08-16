@@ -40,7 +40,6 @@ pip install matplotlib
 pip install numpy
 pip install pyqt5
 pip install onnxruntime
-
 ```
 
 ## For those who care about the pipeline
