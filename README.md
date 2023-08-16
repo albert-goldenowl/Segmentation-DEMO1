@@ -32,7 +32,7 @@ pip install moviepy
 pip install imageio
 ```
 
-**Note**: please install TensorFlow==2.12.1 (cause lastest TensorFlow has a conflict with tf2onnx).
+> **Note**: please install TensorFlow==2.12.1 (cause lastest TensorFlow has a conflict with tf2onnx).
 
 ### Install required libraries for who only want to use the completed program with UI
 
@@ -65,9 +65,11 @@ In case your masks have other colors, please change the attribute of shape's col
 I recommend using [Kaggle](https://www.kaggle.com/) for training model. Kaggle provides free GPU use up to 30 hours/week. All you need to do is upload the notebook to Kaggle, and use it free powerful GPUs to train the model to save a lot of time. 
 ### Convert to onnx format
 For much faster inference that can use in real-time applications, I recommend converting the .h5 format to .onnx format. It can speed up the inference time to 10x!!!
+Specify the path of the input TensorFlow model and the path of the output onnx model in convert_to_onnx.py, then run the script. You should see the onnx model at the path you specify after that.
 ```
 python convert_to_onnx.py
 ```
+
 ## For those who only want to use the completed program with UI
 ```
 python mainUI.py
