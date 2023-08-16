@@ -10,13 +10,15 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 from PIL import ImageColor
 
 
 
 
-class Ui_SettingWindow(object):
+class Ui_SettingWindow(QMainWindow):
     def __init__(self):
+        super().__init__()
         with open('colors.txt', 'r') as f:
             self.colors = f.readlines()
         self.square = self.colors[0].replace('(','').replace(')','').split(',')
@@ -27,13 +29,13 @@ class Ui_SettingWindow(object):
         self.circle_setting = f'({int(self.circle[0])}, {int(self.circle[1])}, {int(self.circle[2])})'
         self.triangle_setting = f'({int(self.triangle[0])}, {int(self.triangle[1])}, {int(self.triangle[2])})'
         self.star_setting = f'({int(self.star[0])}, {int(self.star[1])}, {int(self.star[2])})'
-    backSignal = QtCore.pyqtSignal()
-    def setupUi(self, MainWindow):
+        self.setupUi()
+    def setupUi(self):
         
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 600)
-        MainWindow.setStyleSheet("background-color:rgb(101, 40, 247);")
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.setObjectName("MainWindow")
+        self.resize(800, 600)
+        self.setStyleSheet("background-color:rgb(101, 40, 247);")
+        self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
         self.squareFrame = QtWidgets.QFrame(self.centralwidget)
         self.squareFrame.setGeometry(QtCore.QRect(190, 110, 120, 80))
@@ -158,18 +160,18 @@ class Ui_SettingWindow(object):
 "}\n"
 "")
         self.okBtn.setObjectName("okBtn")
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.setCentralWidget(self.centralwidget)
+        self.statusbar = QtWidgets.QStatusBar()
         self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        self.setStatusBar(self.statusbar)
 
-        self.retranslateUi(MainWindow)
-        self.okBtn.clicked.connect(MainWindow.close) # type: ignore
+        self.retranslateUi()
+        self.okBtn.clicked.connect(self.close) # type: ignore
         self.squareBtn.clicked.connect(self.colorpicker_square)
         self.circleBtn.clicked.connect(self.colorpicker_circle)
         self.triangleBtn.clicked.connect(self.colorpicker_triangle)
         self.starBtn.clicked.connect(self.colorpicker_star)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(self)
     def colorpicker_square(self):
         col = QColorDialog.getColor()
         if col.isValid():
@@ -206,9 +208,9 @@ class Ui_SettingWindow(object):
 
         
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Setting"))
+        self.setWindowTitle(_translate("MainWindow", "Setting"))
         self.label.setText(_translate("MainWindow", "Square"))
         self.label_2.setText(_translate("MainWindow", "Circle"))
         self.label_3.setText(_translate("MainWindow", "Triangle"))
@@ -224,8 +226,8 @@ class Ui_SettingWindow(object):
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
+    
     ui = Ui_SettingWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
+    ui.setupUi()
+    ui.show()
     sys.exit(app.exec_())

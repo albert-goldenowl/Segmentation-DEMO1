@@ -21,6 +21,15 @@ class Ui_MainWindow(QMainWindow):
     def __init__(self):
           
         super().__init__()
+    def openstartwindow(self):
+        self.hide()
+        startwindow = Ui_StartWindow()
+
+        startwindow.show()
+    def opensettingwindow(self):
+        self.hide()
+        settingwindows = Ui_SettingWindow()
+        settingwindows.show()
 
     
     def setupUi(self):
@@ -49,7 +58,7 @@ class Ui_MainWindow(QMainWindow):
 "}\n"
 "")
         self.settingBtn.setObjectName("settingBtn")
-        
+        self.settingBtn.clicked.connect(self.opensettingwindow)
         self.startBtn = QtWidgets.QPushButton(self.centralwidget)
         self.startBtn.setGeometry(QtCore.QRect(260, 250, 181, 71))
         self.startBtn.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
@@ -64,7 +73,7 @@ class Ui_MainWindow(QMainWindow):
 "}\n"
 "")
         self.startBtn.setObjectName("startBtn")
-        
+        self.startBtn.clicked.connect(self.openstartwindow)
         self.quitBtn = QtWidgets.QPushButton(self.centralwidget)
         self.quitBtn.setGeometry(QtCore.QRect(260, 410, 181, 71))
         self.quitBtn.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
