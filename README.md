@@ -31,7 +31,7 @@ pip install albumentations
 pip install moviepy
 pip install imageio
 ```
-### Install required libraries for who only want to use the released program
+### Install required libraries for who only want to use the completed program with UI
 
 ```
 pip install tensorflow
@@ -50,7 +50,15 @@ python collect_images.py
 ```
 You can specify the path to the folder you want to store colleted images. If that folder is not exist, it will be created. Press S to save photo and Q to quit. My script will automatically name the photo you've taken. Note that it only captures inside the green-border rectangle.
 ### Annotate data
-I used [CVAT](https://www.cvat.ai/) to annotating images.
+I used [CVAT](https://www.cvat.ai/) to annotating images. Please export annotations using *CamVid 1.0* format. The default mask's color of each shape is as follows:
+<ul>
+<li style='color:rgb(250, 50, 83)'>Square: rgb(250, 50, 83)</li>
+<li style='color:rgb(36, 179, 83)'>Circle: rgb(36, 179, 83)</li>
+<li style='color:rgb(42, 125, 209)'>Triangle: rgb(42, 125, 209)</li>
+<li style='color:rgb(115, 51, 128)'>Star: rgb(115, 51, 128)</li>
+</ul>
+In case your masks have other colors, please change the attribute of shape's colors in class DataSet in notebook file (cause the DataSet class base on the color of mask to create the one-hot encoding mask).
+
 ### Build model and train
 I recommend using [Kaggle](https://www.kaggle.com/) for training model. Kaggle provides free GPU use up to 30 hours/week. All you need to do is upload the notebook to Kaggle, and use it free powerful GPUs to train the model to save a lot of time. 
 ### Convert to onnx format
@@ -58,7 +66,7 @@ For much faster inference that can use in real-time applications, I recommend co
 ```
 
 ```
-## For those who only want to use the released program
+## For those who only want to use the completed program with UI
 ```
 python mainUI.py
 ```
