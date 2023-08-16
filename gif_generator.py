@@ -5,4 +5,4 @@ images = []
 imgs_path = sorted(imgs_path, key=lambda x: int(x.split('Epoch')[1].split('.')[0]))
 for filename in imgs_path:
     images.append(imageio.imread(filename))
-imageio.mimsave('mygif.gif', images)
+imageio.mimsave('test.gif', images)

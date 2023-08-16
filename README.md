@@ -17,7 +17,7 @@ format). </li>
 <li><b>imageio (optional)</b> (for making gif)</li>
 </ul>
 
-### Install required libraries:
+### Install required libraries for who want to build from scratch
 ```
 pip install tensorflow
 pip install opencv-python
@@ -31,18 +31,43 @@ pip install albumentations
 pip install moviepy
 pip install imageio
 ```
+### Install required libraries for who only want to use the released program
+
+```
+pip install tensorflow
+pip install opencv-python
+pip install matplotlib
+pip install numpy
+pip install pyqt5
+pip install onnxruntime
+
+```
+
+## For those who care about the pipeline
 ### Collect data
 ```
 python collect_images.py
 ```
-You can specify the path to the folder you want to store colleted images. If that folder is not exist, it will be created. Press S to save photo and Q to quit. My script will automatically name the photo you've taken. Note that it only capture everything inside the green-border rectangle.
+You can specify the path to the folder you want to store colleted images. If that folder is not exist, it will be created. Press S to save photo and Q to quit. My script will automatically name the photo you've taken. Note that it only captures inside the green-border rectangle.
 ### Annotate data
+I used [CVAT](https://www.cvat.ai/) to annotating images.
 ### Build model and train
-I recommend using [Kaggle](https://www.kaggle.com/) for training model. Kaggle provides GPU use up to 30 hours/week. All you need to do is upload the notebook to Kaggle, and use it free powerful GPUs to train the model to save a lot of time. 
+I recommend using [Kaggle](https://www.kaggle.com/) for training model. Kaggle provides free GPU use up to 30 hours/week. All you need to do is upload the notebook to Kaggle, and use it free powerful GPUs to train the model to save a lot of time. 
 ### Convert to onnx format
 For much faster inference that can use in real-time applications, I recommend converting the .h5 format to .onnx format. It can speed up the inference time to 10x!!!
 ```
 
 ```
-### Streaming
+## For those who only want to use the released program
+```
+python mainUI.py
+```
 ### Optional: export predictions through epochs to see the learning process of the model
+#### Gif Generator
+```
+python gif_generator.py
+```
+#### MP4 Generator
+```
+python video_generator.py
+```
