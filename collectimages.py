@@ -10,13 +10,13 @@ else:
     i = int(images[-1].split('.')[0]) + 1
 
 frame_shape = (640, 480)
-target_shape = imshape[:2]
+target_shape = (256, 256)
 half_width = target_shape[0] // 2
 half_height = target_shape[1] // 2
 x0 = frame_shape[0] // 2 - half_width
 y0 = frame_shape[1] // 2 - half_height
 x1 = frame_shape[0] // 2 + half_width
-y1 = frame_shape[1] // 2 + half_height
+y1 = frame_shape[1] // 2 + half_heightq
 cam = cv2.VideoCapture(0)
 while True:
     fps = cam.get(cv2.CAP_PROP_FPS)

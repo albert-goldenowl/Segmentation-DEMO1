@@ -2,7 +2,7 @@ import os
 import cv2
 import numpy as np
 images = []
-save_dir = 'cropeed_images'
+save_dir = 'cropped_images'
 if os.path.exists(save_dir) == False:
     os.mkdir(save_dir)
 imgs_path = [os.path.join('gif_material',i) for i in os.listdir('gif_material')]

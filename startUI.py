@@ -82,15 +82,16 @@ def create_img_bg(roi, mask_output, square, circle, triangle, star):
     output = np.stack([b, g, r], axis=-1)
     return output
 class Ui_StartWindow(QWidget):
-   
+    def __init__(self):
+        super().__init__()
     # def openmainwindow(self):
     #     self.window = QtWidgets.QMainWindow()
     #     self.ui = Ui_MainWindow()
     #     self.ui.setupUi(self.window)
     #     MainWindow.hide()
     #     self.window.show()
-    def closeEvent(self, event):
-        print('closing')
+    def closeEvent(self,  event):
+        print('close')
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(728, 669)

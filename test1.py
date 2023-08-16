@@ -19,7 +19,9 @@ from settingUI import Ui_SettingWindow
 class Ui_MainWindow(QWidget):
     
     def __init__(self):
-        self.window = QtWidgets.QMainWindow()   
+        self.mainwindow = QtWidgets.QMainWindow()   
+        self.settingwindow = QtWidgets.QMainWindow()   
+        self.startwindow = QtWidgets.QMainWindow()  
         super().__init__()
     def closeEvent(self, event):
         print('closed')
@@ -36,11 +38,11 @@ class Ui_MainWindow(QWidget):
         # self.settingui.backSignal.connect(self.show)
         
         self.window2.show()
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(689, 543)
-        MainWindow.setStyleSheet("background-color:rgb(101, 40, 247);")
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+    def setupUi(self):
+        self.mainwindow.setObjectName("MainWindow")
+        self.mainwindow.resize(689, 543)
+        self.mainwindow.setStyleSheet("background-color:rgb(101, 40, 247);")
+        self.centralwidget = QtWidgets.QWidget(self.mainwindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(160, 80, 531, 151))
@@ -92,14 +94,14 @@ class Ui_MainWindow(QWidget):
 "}\n"
 "")
         self.quitBtn.setObjectName("quitBtn")
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.mainwindow.setCentralWidget(self.centralwidget)
+        self.statusbar = QtWidgets.QStatusBar(self.mainwindow)
         self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        self.mainwindow.setStatusBar(self.statusbar)
 
-        self.retranslateUi(MainWindow)
-        self.quitBtn.clicked.connect(MainWindow.close) # type: ignore
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.retranslateUi(self.mainwindow)
+        self.quitBtn.clicked.connect(self.mainwindow.close) # type: ignore
+        QtCore.QMetaObject.connectSlotsByName(self.mainwindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -113,8 +115,8 @@ class Ui_MainWindow(QWidget):
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
+    
     ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
+    ui.setupUi()
+    ui.show()
     sys.exit(app.exec_())
