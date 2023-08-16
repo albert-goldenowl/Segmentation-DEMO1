@@ -25,7 +25,6 @@ import matplotlib.pyplot as plt
 import time
 import onnxruntime as ort
 
-
 frame_shape = (640, 481)
 target_shape = (256, 256, 3)
 half_width = target_shape[0] // 2
@@ -34,7 +33,6 @@ x0 = frame_shape[0] // 2 - half_width
 y0 = frame_shape[1] // 2 - half_height
 x1 = frame_shape[0] // 2 + half_width
 y1 = frame_shape[1] // 2 + half_height
-
 
 background = -1
 ort_session = ort.InferenceSession('model.onnx')
@@ -81,6 +79,7 @@ def create_img_bg(roi, mask_output, square, circle, triangle, star):
     output = np.stack([b, g, r], axis=-1)
     return output
 class Ui_StartWindow(QMainWindow):
+    backSignal = pyqtSignal()
     def __init__(self):
         super().__init__()
     # def openmainwindow(self):
@@ -91,7 +90,11 @@ class Ui_StartWindow(QMainWindow):
     #     self.window.show()
         self.setupUi()
     def closeEvent(self,  event):
+        self.goBack()
+    def goBack(self):
+        self.hide()
         self.close_webcam()
+        self.backSignal.emit()
     def setupUi(self):
         self.setObjectName("MainWindow")
         self.resize(728, 669)
@@ -143,7 +146,7 @@ class Ui_StartWindow(QMainWindow):
         self.camera.start()
         self.pushButton_2.clicked.connect(self.toggle_background)
         self.retranslateUi()
-        self.pushButton.clicked.connect(self.close_webcam) # type: ignore
+        self.pushButton.clicked.connect(self.goBack) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(self)
     def close_webcam(self):
         self.close()
@@ -163,7 +166,6 @@ class Ui_StartWindow(QMainWindow):
         self.pushButton_2.setText(_translate("MainWindow", "Toggle background/\n"
 "black"))
 class Camera(QThread):
-
     image = pyqtSignal(np.ndarray)
     background = -1
     def __init__(self):
@@ -209,7 +211,6 @@ class Camera(QThread):
             else:
                 break
     def stop(self):
-
         self.flag = False
         self.capture.release()
 
@@ -217,6 +218,5 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     ui =  Ui_StartWindow()
-    
     ui.show()
     sys.exit(app.exec_())

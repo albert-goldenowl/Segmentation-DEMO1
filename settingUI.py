@@ -13,12 +13,9 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PIL import ImageColor
 
-
-
-
 class Ui_SettingWindow(QMainWindow):
+    backSignal = QtCore.pyqtSignal()
     def __init__(self):
-        
         super().__init__()
         with open('colors.txt', 'r') as f:
             self.colors = f.readlines()
@@ -31,7 +28,8 @@ class Ui_SettingWindow(QMainWindow):
         self.triangle_setting = f'({int(self.triangle[0])}, {int(self.triangle[1])}, {int(self.triangle[2])})'
         self.star_setting = f'({int(self.star[0])}, {int(self.star[1])}, {int(self.star[2])})'
         self.setupUi()
-        
+    def closeEvent(self, event):
+        self.goBack()
     def setupUi(self):
         
         self.setObjectName("MainWindow")
@@ -149,7 +147,7 @@ class Ui_SettingWindow(QMainWindow):
 "")
         self.starBtn.setObjectName("starBtn")
         self.okBtn = QtWidgets.QPushButton(self.centralwidget)
-        self.okBtn.setGeometry(QtCore.QRect(680, 540, 101, 41))
+        self.okBtn.setGeometry(QtCore.QRect(680, 535, 101, 41))
         self.okBtn.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
         self.okBtn.setStyleSheet("QPushButton {\n"
 "font: 18pt \"Bahnschrift Condensed\";\n"
@@ -168,12 +166,15 @@ class Ui_SettingWindow(QMainWindow):
         self.setStatusBar(self.statusbar)
 
         self.retranslateUi()
-        self.okBtn.clicked.connect(self.close) # type: ignore
+        self.okBtn.clicked.connect(self.goBack) # type: ignore
         self.squareBtn.clicked.connect(self.colorpicker_square)
         self.circleBtn.clicked.connect(self.colorpicker_circle)
         self.triangleBtn.clicked.connect(self.colorpicker_triangle)
         self.starBtn.clicked.connect(self.colorpicker_star)
         QtCore.QMetaObject.connectSlotsByName(self)
+    def goBack(self):
+        self.close()
+        self.backSignal.emit()
     def colorpicker_square(self):
         col = QColorDialog.getColor()
         if col.isValid():
@@ -206,10 +207,6 @@ class Ui_SettingWindow(QMainWindow):
             with open('colors.txt', 'w') as f:
                 f.writelines(self.colors)
             self.starFrame.setStyleSheet("background-color: %s;\n" % col.name())
-    
-
-        
-
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("MainWindow", "Setting"))
@@ -224,11 +221,9 @@ class Ui_SettingWindow(QMainWindow):
         self.starBtn.setText(_translate("MainWindow", "Change color"))
         self.okBtn.setText(_translate("MainWindow", "OK"))
 
-
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    
     ui = Ui_SettingWindow()
     ui.setupUi()
     ui.show()

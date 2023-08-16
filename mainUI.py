@@ -11,28 +11,22 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-
 from startUI import Ui_StartWindow 
 from settingUI import Ui_SettingWindow
 
-
 class Ui_MainWindow(QMainWindow):
-    
     def __init__(self):
-          
         super().__init__()
     def openstartwindow(self):
-        
         self.startwindow = Ui_StartWindow()
-
+        self.startwindow.backSignal.connect(self.show)
+        self.hide()
         self.startwindow.show()
     def opensettingwindow(self):
-        self.settingwindows = Ui_SettingWindow()
-        self.settingwindows.show()
-        
-
-
-    
+        self.settingwindow = Ui_SettingWindow()
+        self.settingwindow.backSignal.connect(self.show)
+        self.hide()
+        self.settingwindow.show()
     def setupUi(self):
         self.setObjectName("MainWindow")
         self.resize(689, 543)
@@ -105,7 +99,6 @@ class Ui_MainWindow(QMainWindow):
         self.settingBtn.setText(_translate("MainWindow", "Setting"))
         self.startBtn.setText(_translate("MainWindow", "Start"))
         self.quitBtn.setText(_translate("MainWindow", "Quit"))
-
 
 if __name__ == "__main__":
     import sys
