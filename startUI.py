@@ -25,12 +25,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 import onnxruntime as ort
-with open('colors.txt', 'r') as f:
-    colors = f.readlines()
-square = colors[0].replace('(','').replace(')','').split(',')
-circle = colors[1].replace('(','').replace(')','').split(',')
-triangle = colors[2].replace('(','').replace(')','').split(',')
-star = colors[3].replace('(','').replace(')','').split(',')
+
 
 frame_shape = (640, 481)
 target_shape = (256, 256, 3)
@@ -86,13 +81,16 @@ def create_img_bg(roi, mask_output, square, circle, triangle, star):
 
     output = np.stack([b, g, r], axis=-1)
     return output
-class Ui_StartWindow(object):
+class Ui_StartWindow(QWidget):
+   
     # def openmainwindow(self):
     #     self.window = QtWidgets.QMainWindow()
     #     self.ui = Ui_MainWindow()
     #     self.ui.setupUi(self.window)
     #     MainWindow.hide()
     #     self.window.show()
+    def closeEvent(self, event):
+        print('closing')
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(728, 669)
@@ -164,11 +162,18 @@ class Ui_StartWindow(object):
         self.pushButton_2.setText(_translate("MainWindow", "Toggle background/\n"
 "black"))
 class Camera(QThread):
+
     image = pyqtSignal(np.ndarray)
     background = -1
     def __init__(self):
         super().__init__()
         self.flag = True
+        with open('colors.txt', 'r') as f:
+            self.colors = f.readlines()
+        self.square = self.colors[0].replace('(','').replace(')','').split(',')
+        self.circle = self.colors[1].replace('(','').replace(')','').split(',')
+        self.triangle = self.colors[2].replace('(','').replace(')','').split(',')
+        self.star = self.colors[3].replace('(','').replace(')','').split(',')
     def run(self):
         prev_time = 0 
         new_time = 0
@@ -183,7 +188,7 @@ class Camera(QThread):
                 input_to_model = np.expand_dims(input_to_model, axis=0)
                 y_pred = ort_session.run([output_name], {input_name: input_to_model})
                 res = np.argmax(y_pred[0][0], axis=-1)
-                mask_output = create_img(res, square, circle, triangle, star)
+                mask_output = create_img(res, self.square, self.circle, self.triangle, self.star)
                 cv2.rectangle(frame, (x0, y0), (x1, y1), (0, 255, 0), 2)
                 if self.background == -1:
                     pass
@@ -191,7 +196,7 @@ class Camera(QThread):
                     
                 else:
                     # cv2.putText(frame, 'Background mode', (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 1)
-                    mask_output = create_img_bg(sample_window, res, square, circle, triangle, star)
+                    mask_output = create_img_bg(sample_window, res, self.square, self.circle, self.triangle, self.star)
                 frame[y0:y0+target_shape[1], x0:x0+target_shape[0]] = mask_output
                 frame = cv2.flip(frame, 1)
                 new_time = time.time()

@@ -17,6 +17,7 @@ from settingUI import Ui_SettingWindow
 
 
 class Ui_MainWindow(object):
+ 
     def __init__(self):
         self.window = QtWidgets.QMainWindow()
 
