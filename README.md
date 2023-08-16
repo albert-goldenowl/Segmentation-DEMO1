@@ -66,16 +66,23 @@ I recommend using [Kaggle](https://www.kaggle.com/) for training model. Kaggle p
 ### Convert to onnx format
 For much faster inference that can use in real-time applications, I recommend converting the .h5 format to .onnx format. It can speed up the inference time to 10x!!!
 
-Specify the path of the input TensorFlow model and the path of the output onnx model in ```convert_to_onnx.py```, then run the script. You should see the onnx model at the path you specify after that.
+Specify the path of the input TensorFlow model and the path of the output onnx model in ```convert_to_onnx.py```, then run the script. You should see the onnx model at the path you specified after that.
 ```
 python convert_to_onnx.py
 ```
-
-## For those who only want to use the completed program with UI
+### Streaming
+This will read your camera.
 ```
 python mainUI.py
 ```
 ### Optional: export predictions through epochs to see the learning process of the model
+
+When you're done running the notebook file on Kaggle. You can download the zip file contains the predictions through epochs. You should copy all the images and paste to *gif_material*. Then, crop the images to center then generate gif or mp4 on your choice. The input images default at folder *gif_material*. The cropped images will be placed at *cropped_images*. You can change the folders' path anytime.
+### Crop images 
+```
+python crop_images.py
+```
+After cropping images, you can generate gif or mp4 file on your choice.
 #### Gif Generator
 ```
 python gif_generator.py
@@ -84,3 +91,11 @@ python gif_generator.py
 ```
 python video_generator.py
 ```
+> **Note**: Check carefully the input path.
+## For those who only want to use the completed program with UI
+This will read your camera.
+\
+```
+python mainUI.py
+```
+> **Note**: You can change the color of each shape.
