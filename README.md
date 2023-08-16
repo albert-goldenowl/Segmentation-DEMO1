@@ -19,7 +19,7 @@ format). </li>
 
 ### Install required libraries for who want to build from scratch
 ```
-pip install tensorflow
+pip install tensorflow==2.12.1
 pip install opencv-python
 pip install matplotlib
 pip install numpy
@@ -31,6 +31,9 @@ pip install albumentations
 pip install moviepy
 pip install imageio
 ```
+
+**Note**: please install TensorFlow==2.12.1 (cause lastest TensorFlow has a conflict with tf2onnx).
+
 ### Install required libraries for who only want to use the completed program with UI
 
 ```
@@ -63,7 +66,7 @@ I recommend using [Kaggle](https://www.kaggle.com/) for training model. Kaggle p
 ### Convert to onnx format
 For much faster inference that can use in real-time applications, I recommend converting the .h5 format to .onnx format. It can speed up the inference time to 10x!!!
 ```
-
+python convert_to_onnx.py
 ```
 ## For those who only want to use the completed program with UI
 ```
