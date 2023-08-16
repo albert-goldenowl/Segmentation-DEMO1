@@ -5,7 +5,7 @@ Shape Semantic Segmentation requires:
 <ul>
 <li><b>TensorFlow</b> (for building models).</li>
 <li><b>OpenCV</b> (for image processing).</li>
-<li><b>Matplotlib</b> (for visualization)</li>
+<li><b>Matplotlib</b> (for visualization).</li>
 <li><b>Numpy</b> (for working with multi-dimensional arrays).</li>
 <li><b>PyQt5</b> (for GUI).</li>
 <li><b>onnx</b> (for working with onnx files).</li>
