@@ -1,5 +1,6 @@
 import cv2
 import os
+# Choose path to save images
 save_dir = 'images'
 if os.path.exists(save_dir) == False:
     os.mkdir(save_dir)

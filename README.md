@@ -5,7 +5,7 @@ Shape Semantic Segmentation requires:
 <ul>
 <li><b>TensorFlow</b> (for building models).</li>
 <li><b>OpenCV</b> (for image processing).</li>
-
+<li><b>Matplotlib</b> (for visualization)</li>
 <li><b>Numpy</b> (for working with multi-dimensional arrays).</li>
 <li><b>PyQt5</b> (for GUI).</li>
 <li><b>onnx</b> (for working with onnx files).</li>
@@ -13,6 +13,35 @@ Shape Semantic Segmentation requires:
 <li><b>tf2onnx</b> (for converting TensorFlow model file to onnx 
 format). </li>
 <li><b>albumentations</b> (for image augmentation)</li>
-<li><b>Matplotlib</b> (for visualization)</li>
-
+<li><b>moviepy (optional)</b> (for making video)</li>
+<li><b>imageio (optional)</b> (for making gif)</li>
 </ul>
+### Install required libraries:
+```
+pip install tensorflow
+pip install opencv-python
+pip install matplotlib
+pip install numpy
+pip install pyqt5
+pip install onnx
+pip install onnxruntime
+pip install tf2onnx
+pip install albumentations
+pip install moviepy
+pip install imageio
+```
+### Collect data
+```
+python collect_images.py
+```
+You can specify the path to the folder you want to store colleted images. If that folder is not exist, it will be created. Press S to save photo and Q to quit. My script will automatically name the photo you've taken. Note that it only capture everything inside the green-border rectangle.
+### Annotate data
+### Build model and train
+I recommend you to use [Kaggle](https://www.kaggle.com/) for training model. Kaggle provides GPU use up to 30 hours/week. All you need to do is upload the notebook to Kaggle, and use it free GPUs to train the model to save a lot of time. 
+### Convert to onnx
+For much faster inference that can use in real-time applications, I recommend converting the .h5 format to .onnx format. It can speed up the inference time to 10x!!!
+```
+
+```
+### Streaming
+### Optional: export epochs
