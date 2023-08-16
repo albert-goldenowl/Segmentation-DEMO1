@@ -8,7 +8,6 @@ if len(images) == 0:
     i = 0
 else:
     i = int(images[-1].split('.')[0]) + 1
-
 frame_shape = (640, 480)
 target_shape = (256, 256)
 half_width = target_shape[0] // 2
