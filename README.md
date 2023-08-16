@@ -32,7 +32,7 @@ pip install moviepy
 pip install imageio
 ```
 
-> **Note**: please install TensorFlow==2.12.1 (cause lastest TensorFlow has a conflict with tf2onnx).
+> :clipboard: **Note**: please install TensorFlow==2.12.1 (cause lastest TensorFlow has a conflict with tf2onnx).
 
 ### Install required libraries for who only want to use the completed program with UI
 
@@ -50,7 +50,7 @@ pip install onnxruntime
 ```
 python collect_images.py
 ```
-You can specify the path to the folder you want to store colleted images. If that folder is not exist, it will be created. Press S to save photo and Q to quit. My script will automatically name the photo you've taken. Note that it only captures inside the green-border rectangle.
+You can specify the path to the folder you want to store colleted images. If that folder is not exist, it will be created. Press S to take a photo and Q to quit. My script will automatically name the photo you've taken. Note that it only captures inside the green-border rectangle.
 ### Annotate data
 I used [CVAT](https://www.cvat.ai/) to annotating images. Please export annotations using *CamVid 1.0* format. The default mask's color of each shape is as follows:
 <ul>
@@ -59,17 +59,23 @@ I used [CVAT](https://www.cvat.ai/) to annotating images. Please export annotati
 <li style='color:rgb(42, 125, 209)'>Triangle: rgb(42, 125, 209)</li>
 <li style='color:rgb(115, 51, 128)'>Star: rgb(115, 51, 128)</li>
 </ul>
-In case your masks have other colors, please change the attribute of shape's colors in class DataSet in notebook file (cause the DataSet class base on the color of mask to create the one-hot encoding mask).
+
+In case your masks have other colors, please change the attribute of shape's colors in class **DataSet** in ```model.ipynb```(cause the **DataSet** class base on the color of mask to create the one-hot encoding mask).
 
 ### Build model and train
-I recommend using [Kaggle](https://www.kaggle.com/) for training model. Kaggle provides free GPU use up to 30 hours/week. All you need to do is upload the notebook to Kaggle, and use it free powerful GPUs to train the model to save a lot of time. 
+
+I builded the model based on the UNet architecture, with Depthwise Convolution from MobileNet to reduce number of parameters and speed up the inference process.
+```model.ipynb``` has all the helper functions, classes as well as model. I recommend using [Kaggle](https://www.kaggle.com/) for training model. Kaggle provides free GPU use up to 30 hours/week. All you need to do is upload the notebook to Kaggle, and use it free powerful GPUs to train the model to save a lot of time. 
+
 ### Convert to onnx format
 For much faster inference that can use in real-time applications, I recommend converting the .h5 format to .onnx format. It can speed up the inference time to 10x!!!
 
 Specify the path of the input TensorFlow model and the path of the output onnx model in ```convert_to_onnx.py```, then run the script. You should see the onnx model at the path you specified after that.
+
 ```
 python convert_to_onnx.py
 ```
+
 ### Streaming
 This will read your camera.
 ```
@@ -91,11 +97,10 @@ python gif_generator.py
 ```
 python video_generator.py
 ```
-> **Note**: Check carefully the input path.
+> :clipboard: **Note**: Check carefully the input path.
 ## For those who only want to use the completed program with UI
 This will read your camera.
-\
 ```
 python mainUI.py
 ```
-> **Note**: You can change the color of each shape.
+> :clipboard: **Note**: You can change the color of each shape.
