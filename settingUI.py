@@ -18,6 +18,7 @@ from PIL import ImageColor
 
 class Ui_SettingWindow(QMainWindow):
     def __init__(self):
+        
         super().__init__()
         with open('colors.txt', 'r') as f:
             self.colors = f.readlines()
@@ -30,6 +31,7 @@ class Ui_SettingWindow(QMainWindow):
         self.triangle_setting = f'({int(self.triangle[0])}, {int(self.triangle[1])}, {int(self.triangle[2])})'
         self.star_setting = f'({int(self.star[0])}, {int(self.star[1])}, {int(self.star[2])})'
         self.setupUi()
+        
     def setupUi(self):
         
         self.setObjectName("MainWindow")

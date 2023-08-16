@@ -22,14 +22,15 @@ class Ui_MainWindow(QMainWindow):
           
         super().__init__()
     def openstartwindow(self):
-        self.hide()
-        startwindow = Ui_StartWindow()
+        
+        self.startwindow = Ui_StartWindow()
 
-        startwindow.show()
+        self.startwindow.show()
     def opensettingwindow(self):
-        self.hide()
-        settingwindows = Ui_SettingWindow()
-        settingwindows.show()
+        self.settingwindows = Ui_SettingWindow()
+        self.settingwindows.show()
+        
+
 
     
     def setupUi(self):

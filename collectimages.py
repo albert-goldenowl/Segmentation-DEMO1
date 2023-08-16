@@ -16,7 +16,7 @@ half_height = target_shape[1] // 2
 x0 = frame_shape[0] // 2 - half_width
 y0 = frame_shape[1] // 2 - half_height
 x1 = frame_shape[0] // 2 + half_width
-y1 = frame_shape[1] // 2 + half_heightq
+y1 = frame_shape[1] // 2 + half_height
 cam = cv2.VideoCapture(0)
 while True:
     fps = cam.get(cv2.CAP_PROP_FPS)
