@@ -12,9 +12,9 @@ Shape Semantic Segmentation requires:
 <li><b>onnxruntime</b> (for much faster inference).</li>
 <li><b>tf2onnx</b> (for converting TensorFlow model file to onnx 
 format). </li>
-<li><b>albumentations</b> (for image augmentation)</li>
-<li><b>moviepy (optional)</b> (for making video)</li>
-<li><b>imageio (optional)</b> (for making gif)</li>
+<li><b>albumentations</b> (for image augmentation).</li>
+<li><b>moviepy (optional)</b> (for making video).</li>
+<li><b>imageio (optional)</b> (for making gif).</li>
 </ul>
 
 ### Install required libraries for who want to build from scratch
