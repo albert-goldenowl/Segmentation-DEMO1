@@ -17,7 +17,7 @@ format). </li>
 <li><b>imageio (optional)</b> (for making gif).</li>
 </ul>
 
-### Install required libraries for who want to build from scratch
+### Install required libraries for those who want to build from scratch
 ```
 pip install tensorflow==2.12.1
 pip install opencv-python
@@ -34,7 +34,7 @@ pip install imageio
 
 > :clipboard: **Note**: please install TensorFlow==2.12.1 (cause lastest TensorFlow has a conflict with tf2onnx).
 
-### Install required libraries for who only want to use the completed program with UI
+### Install required libraries for those who only want to use the completed program with UI
 
 ```
 pip install tensorflow
