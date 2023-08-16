@@ -16,33 +16,21 @@ from startUI import Ui_StartWindow
 from settingUI import Ui_SettingWindow
 
 
-class Ui_MainWindow(QWidget):
+class Ui_MainWindow(QMainWindow):
     
     def __init__(self):
-        self.mainwindow = QtWidgets.QMainWindow()   
-        self.settingwindow = QtWidgets.QMainWindow()   
-        self.startwindow = QtWidgets.QMainWindow()  
+     
         super().__init__()
+        self.setupUi()
     def closeEvent(self, event):
         print('closed')
 
-    def openstartwindow(self):
-        self.ui = Ui_StartWindow()
-        self.ui.setupUi(self.window)
-        # MainWindow.hide()
-        self.window.show()
-    def opensettingwindow(self):
-        self.window2 = QtWidgets.QMainWindow()
-        self.settingui = Ui_SettingWindow()
-        self.settingui.setupUi(self.window2)
-        # self.settingui.backSignal.connect(self.show)
         
-        self.window2.show()
     def setupUi(self):
-        self.mainwindow.setObjectName("MainWindow")
-        self.mainwindow.resize(689, 543)
-        self.mainwindow.setStyleSheet("background-color:rgb(101, 40, 247);")
-        self.centralwidget = QtWidgets.QWidget(self.mainwindow)
+        self.setObjectName("MainWindow")
+        self.resize(689, 543)
+        self.setStyleSheet("background-color:rgb(101, 40, 247);")
+        self.centralwidget = QtWidgets.QWidget()
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(160, 80, 531, 151))
@@ -64,7 +52,7 @@ class Ui_MainWindow(QWidget):
 "}\n"
 "")
         self.settingBtn.setObjectName("settingBtn")
-        self.settingBtn.clicked.connect(self.opensettingwindow)
+        
         self.startBtn = QtWidgets.QPushButton(self.centralwidget)
         self.startBtn.setGeometry(QtCore.QRect(260, 250, 181, 71))
         self.startBtn.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
@@ -79,7 +67,7 @@ class Ui_MainWindow(QWidget):
 "}\n"
 "")
         self.startBtn.setObjectName("startBtn")
-        self.startBtn.clicked.connect(self.openstartwindow)
+        
         self.quitBtn = QtWidgets.QPushButton(self.centralwidget)
         self.quitBtn.setGeometry(QtCore.QRect(260, 410, 181, 71))
         self.quitBtn.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
@@ -94,18 +82,17 @@ class Ui_MainWindow(QWidget):
 "}\n"
 "")
         self.quitBtn.setObjectName("quitBtn")
-        self.mainwindow.setCentralWidget(self.centralwidget)
-        self.statusbar = QtWidgets.QStatusBar(self.mainwindow)
+        self.setCentralWidget(self.centralwidget)
+        self.statusbar = QtWidgets.QStatusBar()
         self.statusbar.setObjectName("statusbar")
-        self.mainwindow.setStatusBar(self.statusbar)
+        self.setStatusBar(self.statusbar)
 
-        self.retranslateUi(self.mainwindow)
-        self.quitBtn.clicked.connect(self.mainwindow.close) # type: ignore
-        QtCore.QMetaObject.connectSlotsByName(self.mainwindow)
-
-    def retranslateUi(self, MainWindow):
+        self.retranslateUi()
+        self.quitBtn.clicked.connect(self.close) # type: ignore
+        QtCore.QMetaObject.connectSlotsByName(self)
+    def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Shape Segmentation"))
+        self.setWindowTitle(_translate("MainWindow", "Shape Segmentation"))
         self.label.setText(_translate("MainWindow", "SHAPE SEGMENTATION"))
         self.settingBtn.setText(_translate("MainWindow", "Setting"))
         self.startBtn.setText(_translate("MainWindow", "Start"))

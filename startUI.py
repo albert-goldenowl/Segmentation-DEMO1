@@ -16,9 +16,8 @@ import cv2
 from PyQt5 import QtCore
 import numpy as np
 from PyQt5.QtCore import *
-from PyQt5.QtGui import QImage, QPixmap
-from PyQt5.QtWidgets import QDialog, QApplication, QWidget
-from PyQt5.uic import loadUi
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
 import cv2
 import tensorflow as tf
 import numpy as np
@@ -81,7 +80,7 @@ def create_img_bg(roi, mask_output, square, circle, triangle, star):
 
     output = np.stack([b, g, r], axis=-1)
     return output
-class Ui_StartWindow(QWidget):
+class Ui_StartWindow(QMainWindow):
     def __init__(self):
         super().__init__()
     # def openmainwindow(self):
@@ -90,13 +89,14 @@ class Ui_StartWindow(QWidget):
     #     self.ui.setupUi(self.window)
     #     MainWindow.hide()
     #     self.window.show()
+        self.setupUi()
     def closeEvent(self,  event):
-        print('close')
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(728, 669)
-        MainWindow.setStyleSheet("background-color:rgb(101, 40, 247);")
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.close_webcam()
+    def setupUi(self):
+        self.setObjectName("MainWindow")
+        self.resize(728, 669)
+        self.setStyleSheet("background-color:rgb(101, 40, 247);")
+        self.centralwidget = QtWidgets.QWidget()
         self.centralwidget.setObjectName("centralwidget")
         
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
@@ -134,19 +134,19 @@ class Ui_StartWindow(QWidget):
 "}\n"
 "")
         self.pushButton_2.setObjectName("pushButton_2")
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.setCentralWidget(self.centralwidget)
+        self.statusbar = QtWidgets.QStatusBar()
         self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        self.setStatusBar(self.statusbar)
         self.camera = Camera()  
         self.camera.image.connect(self.update_image)
         self.camera.start()
         self.pushButton_2.clicked.connect(self.toggle_background)
-        self.retranslateUi(MainWindow)
-        self.pushButton.clicked.connect(lambda: self.close_webcam(MainWindow)) # type: ignore
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
-    def close_webcam(self, window):
-        window.close()
+        self.retranslateUi()
+        self.pushButton.clicked.connect(self.close_webcam) # type: ignore
+        QtCore.QMetaObject.connectSlotsByName(self)
+    def close_webcam(self):
+        self.close()
         self.camera.stop()
     def toggle_background(self):
         self.camera.background = -self.camera.background
@@ -155,9 +155,9 @@ class Ui_StartWindow(QWidget):
         image = QImage(frame, frame.shape[1], frame.shape[0], QImage.Format_RGB888)
         self.label.setPixmap(QPixmap.fromImage(image))
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Webcam"))
+        self.setWindowTitle(_translate("MainWindow", "Webcam"))
         self.pushButton.setText(_translate("MainWindow", "Back"))
         self.label.setText(_translate("MainWindow", ""))
         self.pushButton_2.setText(_translate("MainWindow", "Toggle background/\n"
@@ -212,13 +212,11 @@ class Camera(QThread):
 
         self.flag = False
         self.capture.release()
-        print('closed')
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
     ui =  Ui_StartWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
+    
+    ui.show()
     sys.exit(app.exec_())
