@@ -195,10 +195,7 @@ class Camera(QThread):
                 cv2.rectangle(frame, (x0, y0), (x1, y1), (0, 255, 0), 2)
                 if self.background == -1:
                     pass
-                    # cv2.putText(frame, 'Black mode', (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 1)
-                    
                 else:
-                    # cv2.putText(frame, 'Background mode', (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 1)
                     mask_output = create_img_bg(sample_window, res, self.square, self.circle, self.triangle, self.star)
                 frame[y0:y0+target_shape[1], x0:x0+target_shape[0]] = mask_output
                 frame = cv2.flip(frame, 1)
