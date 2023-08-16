@@ -16,6 +16,7 @@ format). </li>
 <li><b>moviepy (optional)</b> (for making video)</li>
 <li><b>imageio (optional)</b> (for making gif)</li>
 </ul>
+
 ### Install required libraries:
 ```
 pip install tensorflow
