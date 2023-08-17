@@ -1,5 +1,8 @@
 <b>Semantic Segmentation</b> is the task that model will assign class to each pixel of an image. It provides much more detailed information about the image. To step into the world of segmentation, let's get started with a simple (but not really) project that segment shapes.
 This repo provides an end-to-end pipeline to develope semantic segmentation models.
+
+![mygif](https://github.com/albert-goldenowl/Segmentation-DEMO1/assets/140538269/d422dc65-6526-442e-8cab-4ae64449b215)
+
 ### Requires:
 Shape Semantic Segmentation requires:
 <ul>
