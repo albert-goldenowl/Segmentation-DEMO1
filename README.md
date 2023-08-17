@@ -63,7 +63,7 @@ I used [CVAT](https://www.cvat.ai/) to annotating images. Please export annotati
 <li style='color:rgb(115, 51, 128)'>Star: rgb(115, 51, 128)</li>
 </ul>
 
-In case your masks have other colors, please change the attribute of shape's colors in class **DataSet** in ```model.ipynb```(cause the **DataSet** class base on the color of mask to create the one-hot encoding mask).
+In case your masks have other colors, please change the attribute of shape's colors in class **Dataset** in ```model.ipynb```(cause the **Dataset** class base on the color of mask to create the one-hot encoding mask).
 
 ### Build model and train
 
