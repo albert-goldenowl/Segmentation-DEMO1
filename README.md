@@ -70,6 +70,9 @@ In case your masks have other colors, please change the attribute of shape's col
 I builded the model based on the UNet architecture, with Depthwise Convolution from MobileNet to reduce number of parameters and speed up the inference process.
 ```model.ipynb``` has all the helper functions, classes as well as model. I recommend using [Kaggle](https://www.kaggle.com/) for training model. Kaggle provides free GPU use up to 30 hours/week. All you need to do is upload the notebook to Kaggle, and use it free powerful GPUs to train the model to save a lot of time. 
 
+You can download the model and zip file contains predictions through epochs after done running ```model.ipynb``` on Kaggle.
+
+> :clipboard: **Note**: Please change all paths in ```model.ipynb``` to your current workspace.
 ### Convert to onnx format
 For much faster inference that can use in real-time applications, I recommend converting the .h5 format to .onnx format. It can speed up the inference time to 10x!!!
 
