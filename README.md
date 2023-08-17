@@ -53,14 +53,14 @@ pip install onnxruntime
 ```
 python collect_images.py
 ```
-You can specify the path to the folder you want to store colleted images. If that folder is not exist, it will be created. Press S to take a photo and Q to quit. My script will automatically name the photo you've taken. Note that it only captures inside the green-border rectangle.
+You can specify the path to the folder you want to store colleted images. If that folder is not exist, it will be created. Press S to take a photo and Q to quit. My script will automatically name the photo you've taken. Note that it only captures things inside the green-border rectangle.
 ### Annotate data
 I used [CVAT](https://www.cvat.ai/) to annotating images. Please export annotations using *CamVid 1.0* format. The default mask's color of each shape is as follows:
 <ul>
-<li style='color:rgb(250, 50, 83)'>Square: rgb(250, 50, 83)</li>
-<li style='color:rgb(36, 179, 83)'>Circle: rgb(36, 179, 83)</li>
-<li style='color:rgb(42, 125, 209)'>Triangle: rgb(42, 125, 209)</li>
-<li style='color:rgb(115, 51, 128)'>Star: rgb(115, 51, 128)</li>
+<li style='color:rgb(250, 50, 83)'>🔲 Square: rgb(250, 50, 83)</li>
+<li style='color:rgb(36, 179, 83)'>🔵 Circle: rgb(36, 179, 83)</li>
+<li style='color:rgb(42, 125, 209)'>🔺Triangle: rgb(42, 125, 209)</li>
+<li style='color:rgb(115, 51, 128)'>⭐ Star: rgb(115, 51, 128)</li>
 </ul>
 
 In case your masks have other colors, please change the attribute of shape's colors in class **Dataset** in ```model.ipynb```(cause the **Dataset** class base on the color of mask to create the one-hot encoding mask).
