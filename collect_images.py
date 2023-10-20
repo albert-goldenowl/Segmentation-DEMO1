@@ -20,11 +20,12 @@ y1 = frame_shape[1] // 2 + half_height
 cam = cv2.VideoCapture(0)
 while True:
     fps = cam.get(cv2.CAP_PROP_FPS)
-    
+
     ret, frame = cam.read()
     ori_frame = frame.copy()
     frame = cv2.resize(frame, frame_shape)
-    cv2.putText(frame, str(int(fps)), (5, 30), cv2.FONT_HERSHEY_PLAIN, 3, (0, 255, 0), 1)
+    cv2.putText(frame, str(int(fps)), (5, 30),
+                cv2.FONT_HERSHEY_PLAIN, 3, (0, 255, 0), 1)
     cv2.rectangle(frame, (x0, y0), (x1, y1), (0, 255, 0), 2)
     cv2.imshow('cam', frame)
     k = cv2.waitKey(1)

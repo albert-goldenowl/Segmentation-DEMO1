@@ -11,22 +11,26 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-from startUI import Ui_StartWindow 
+from startUI import Ui_StartWindow
 from settingUI import Ui_SettingWindow
+
 
 class Ui_MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+
     def openstartwindow(self):
         self.startwindow = Ui_StartWindow()
         self.startwindow.backSignal.connect(self.show)
         self.hide()
         self.startwindow.show()
+
     def opensettingwindow(self):
         self.settingwindow = Ui_SettingWindow()
         self.settingwindow.backSignal.connect(self.show)
         self.hide()
         self.settingwindow.show()
+
     def setupUi(self):
         self.setObjectName("MainWindow")
         self.resize(689, 543)
@@ -37,51 +41,51 @@ class Ui_MainWindow(QMainWindow):
         self.label.setGeometry(QtCore.QRect(160, 80, 531, 151))
 
         self.label.setStyleSheet("font: 75 24pt \"Bahnschrift\";\n"
-"color:white;")
+                                 "color:white;")
         self.label.setObjectName("label")
         self.settingBtn = QtWidgets.QPushButton(self.centralwidget)
         self.settingBtn.setGeometry(QtCore.QRect(260, 330, 181, 71))
         self.settingBtn.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
         self.settingBtn.setStyleSheet("QPushButton {\n"
-"font: 18pt \"Bahnschrift Condensed\";\n"
-"background-color:rgb(80, 64, 153);\n"
-"color:white;\n"
-"border-radius:12px;\n"
-"}\n"
-"QPushButton:hover{\n"
-"background-color:rgb(160, 118, 249);\n"
-"}\n"
-"")
+                                      "font: 18pt \"Bahnschrift Condensed\";\n"
+                                      "background-color:rgb(80, 64, 153);\n"
+                                      "color:white;\n"
+                                      "border-radius:12px;\n"
+                                      "}\n"
+                                      "QPushButton:hover{\n"
+                                      "background-color:rgb(160, 118, 249);\n"
+                                      "}\n"
+                                      "")
         self.settingBtn.setObjectName("settingBtn")
         self.settingBtn.clicked.connect(self.opensettingwindow)
         self.startBtn = QtWidgets.QPushButton(self.centralwidget)
         self.startBtn.setGeometry(QtCore.QRect(260, 250, 181, 71))
         self.startBtn.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
         self.startBtn.setStyleSheet("QPushButton {\n"
-"font: 18pt \"Bahnschrift Condensed\";\n"
-"background-color:rgb(80, 64, 153);\n"
-"color:white;\n"
-"border-radius:12px;\n"
-"}\n"
-"QPushButton:hover{\n"
-"background-color:rgb(160, 118, 249);\n"
-"}\n"
-"")
+                                    "font: 18pt \"Bahnschrift Condensed\";\n"
+                                    "background-color:rgb(80, 64, 153);\n"
+                                    "color:white;\n"
+                                    "border-radius:12px;\n"
+                                    "}\n"
+                                    "QPushButton:hover{\n"
+                                    "background-color:rgb(160, 118, 249);\n"
+                                    "}\n"
+                                    "")
         self.startBtn.setObjectName("startBtn")
         self.startBtn.clicked.connect(self.openstartwindow)
         self.quitBtn = QtWidgets.QPushButton(self.centralwidget)
         self.quitBtn.setGeometry(QtCore.QRect(260, 410, 181, 71))
         self.quitBtn.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
         self.quitBtn.setStyleSheet("QPushButton {\n"
-"font: 18pt \"Bahnschrift Condensed\";\n"
-"background-color:rgb(80, 64, 153);\n"
-"color:white;\n"
-"border-radius:12px;\n"
-"}\n"
-"QPushButton:hover{\n"
-"background-color:rgb(160, 118, 249);\n"
-"}\n"
-"")
+                                   "font: 18pt \"Bahnschrift Condensed\";\n"
+                                   "background-color:rgb(80, 64, 153);\n"
+                                   "color:white;\n"
+                                   "border-radius:12px;\n"
+                                   "}\n"
+                                   "QPushButton:hover{\n"
+                                   "background-color:rgb(160, 118, 249);\n"
+                                   "}\n"
+                                   "")
         self.quitBtn.setObjectName("quitBtn")
         self.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar()
@@ -89,7 +93,7 @@ class Ui_MainWindow(QMainWindow):
         self.setStatusBar(self.statusbar)
 
         self.retranslateUi()
-        self.quitBtn.clicked.connect(self.close) # type: ignore
+        self.quitBtn.clicked.connect(self.close)  # type: ignore
         QtCore.QMetaObject.connectSlotsByName(self)
 
     def retranslateUi(self):
@@ -99,6 +103,7 @@ class Ui_MainWindow(QMainWindow):
         self.settingBtn.setText(_translate("MainWindow", "Setting"))
         self.startBtn.setText(_translate("MainWindow", "Start"))
         self.quitBtn.setText(_translate("MainWindow", "Quit"))
+
 
 if __name__ == "__main__":
     import sys
